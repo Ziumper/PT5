@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTApplication", "PTApplicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTDatabase", "PTDatabase\PTDatabase.csproj", "{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTBusinessLogic", "PTBusinessLogic\PTBusinessLogic.csproj", "{BB08E62E-3B77-4F8F-8F88-A9B8250C3984}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB08E62E-3B77-4F8F-8F88-A9B8250C3984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB08E62E-3B77-4F8F-8F88-A9B8250C3984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB08E62E-3B77-4F8F-8F88-A9B8250C3984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB08E62E-3B77-4F8F-8F88-A9B8250C3984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
