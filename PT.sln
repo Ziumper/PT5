@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTApplication", "PTApplication\PTApplication.csproj", "{F419E84F-A342-4D9B-8FFD-3E9E082751F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTDatabase", "PTDatabase\PTDatabase.csproj", "{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F419E84F-A342-4D9B-8FFD-3E9E082751F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F419E84F-A342-4D9B-8FFD-3E9E082751F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F419E84F-A342-4D9B-8FFD-3E9E082751F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F419E84F-A342-4D9B-8FFD-3E9E082751F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8DCAFB-6D1C-4F1B-B224-2C01DEA37BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {77756821-6750-4A8B-B5C9-DD746183F8DE}
+	EndGlobalSection
+EndGlobal
