@@ -1,4 +1,6 @@
 ﻿using PTApplication.DialogWindow;
+using PTDatabase;
+using PTDatabase.Models;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -110,7 +112,33 @@ namespace PTApplication.ViewModel
 
             OpenFileCommand = new RelayCommand(OnOpenFileCommand, OpenFileCanExecute);
             OnCancelOperationCommand = new RelayCommand(OnCancelClicked);
+
+            CreateDb();
         }
+
+        private void CreateDb ()
+        {
+            Debug.WriteLine(SqliteDbContext.Path);
+            if (System.IO.File.Exists(SqliteDbContext.Path))
+            {
+                System.IO.File.Delete(SqliteDbContext.Path);
+            }
+
+            SqliteDbContext db = new SqliteDbContext();
+
+            db.Database.EnsureCreated();
+
+            User user = new User();
+            user.Login = "admin";
+            user.Password = "admin";
+            user.Id = 1;
+            user.Ip = "127.0.0.1";
+
+            db.Users.Add(user);
+
+            db.SaveChanges();
+        }
+
 
         private void OnCancelClicked(object obj)
         {
@@ -147,7 +175,7 @@ namespace PTApplication.ViewModel
         {
             string result = "";
             
-            using(var textReader = File.OpenText(viewModel.Model.FullName)) {
+            using(var textReader = System.IO.File.OpenText(viewModel.Model.FullName)) {
                 result = textReader.ReadToEnd();
             }
 
