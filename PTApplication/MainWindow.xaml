@@ -13,6 +13,7 @@
                     Header="{Binding Source={StaticResource Strings}, Path=Open_File}"
                     Command="{Binding OpenFileCommand}" CommandParameter="{Binding}"/>
         </ContextMenu>
+        
 
        
 
@@ -73,6 +74,10 @@
             </MenuItem>
             <MenuItem Header="{Binding Source={StaticResource Strings}, Path=Sorting}"
                       Command="{Binding SortRootFolderCommand}" />
+            <MenuItem Header="Users Management" >
+                <MenuItem Header="Register"  Command="{Binding OnRegisterNewUserCommand}"/>
+                <MenuItem Header="Login" />
+            </MenuItem>
         </Menu>
         <ToolBarPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0" Grid.Column="1" Background="{x:Static SystemColors.ControlLightBrush}" >
             <ToggleButton Margin="5 0 5 0" x:Name="PolishLangugageButton" Style="{StaticResource LangButtonStyle}" IsChecked="{Binding Lang, Converter={StaticResource LangBoolConverter}, ConverterParameter=pl}">

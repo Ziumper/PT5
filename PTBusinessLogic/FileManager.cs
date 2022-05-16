@@ -1,4 +1,5 @@
-﻿using PTDatabase;
+﻿using PTBusinessLogic.Models;
+using PTDatabase;
 using PTDatabase.Models;
 using System.Diagnostics;
 
@@ -19,6 +20,9 @@ namespace PTBusinessLogic
             }
         }
 
-        
+        public void CreateUser(RegisterUserDto dto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,15 +1,52 @@
-﻿using PTBusinessLogic.Models;
+﻿using PTBusinessLogic;
+using PTBusinessLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace PTApplication.ViewModel
 {
-    public class RegisterUserVievModel : ViewModelBase
+    public class UserViewModel : ViewModelBase
     {
+        public ICommand OnSaveNewUser { get; private set; } 
+        public ICommand OnExitClicked { get; private set; }
+
         private RegisterUserDto dto;
+        private FileManager fileManager;
+
+        public UserViewModel()
+        {
+            dto = new RegisterUserDto();
+            OnSaveNewUser = new RelayCommand(OnRegisterNewUser);
+            OnExitClicked = new RelayCommand(ClickCancel);
+            fileManager = new FileManager();
+        }
+
+        private void ClickCancel(object parameter)
+        {
+            if (parameter == null) return;
+
+            if (parameter is not Window)
+            {
+                throw new ArgumentException("Not valid parameter passed into exit command");
+            };
+
+            Window window = (Window)parameter;
+            window.Close();
+        }
+
+        private void OnRegisterNewUser(object obj)
+        {
+            fileManager.CreateUser(dto);
+        }
+
+        
+
+       
 
         public string Login
         { 
