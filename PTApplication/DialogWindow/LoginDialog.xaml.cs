@@ -25,5 +25,11 @@ namespace PTApplication.DialogWindow
             InitializeComponent();
             DataContext = new UserViewModel();
         }
+
+        public LoginDialog(UserViewModel userViewModel)
+        {
+            InitializeComponent();
+            DataContext = userViewModel;
+        }
     }
 }

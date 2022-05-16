@@ -21,9 +21,25 @@ namespace PTApplication.ViewModel
         private string statusMessage;
         private int currentMaxThread;
         private CancellationTokenSource source;
+        private UserViewModel logedUser;
 
         public static readonly string[] TextFilesExtensions = new string[] { ".txt", ".ini", ".log" };
         public event EventHandler<FileInfoViewModel> OnOpenFileRequest;
+
+        public UserViewModel LoggedUser { 
+            get
+            {
+                return logedUser;
+            } 
+            set
+            {
+                if(logedUser != value && value != null)
+                {
+                    logedUser = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public ICommand OpenRootFolderCommand { get; private set; }
         public ICommand SortRootFolderCommand { get; private set; }
@@ -118,8 +134,6 @@ namespace PTApplication.ViewModel
 
             OnRegisterNewUserCommand = new RelayCommand(OnRegisterNewUser);
             OnLoginIntoCommand = new RelayCommand(LoginIntoCommand);
-
-            FileManager manager = new FileManager();
         }
 
         private void LoginIntoCommand(object obj)

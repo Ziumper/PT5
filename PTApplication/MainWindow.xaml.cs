@@ -1,4 +1,6 @@
-﻿using PTApplication.ViewModel;
+﻿using PTApplication.DialogWindow;
+using PTApplication.ViewModel;
+using PTBusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +35,19 @@ namespace PTApplication
             DataContext = fileExplorer;
             fileExplorer.PropertyChanged += OnFileExplorerPropertyChanged;
             fileExplorer.OnOpenFileRequest += OnOpenFileRequest;
+
+            if (fileExplorer.LoggedUser == null)
+            {
+                fileExplorer.LoggedUser = new UserViewModel();
+                fileExplorer.LoggedUser.Login = FileManager.HostUserName;
+
+                FileManager fileManager = new FileManager();
+                bool isLoggedIn = fileManager.CheckIsUserLogedInCorrect();
+
+                LoginDialog loginDialog = new LoginDialog(fileExplorer.LoggedUser);
+                var result = loginDialog.ShowDialog();
+                if (result == false) this.Close();
+            }
         }
 
         private void OnOpenFileRequest(object? sender, FileInfoViewModel e)

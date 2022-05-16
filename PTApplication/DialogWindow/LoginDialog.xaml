@@ -18,11 +18,11 @@
         <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">Login into application</Label>
         <StackPanel Grid.Row="1" Height="25" Orientation="Horizontal" >
             <Label Content="Login: "></Label>
-            <TextBox x:Name="test" Height="20" Margin="99 0 0 0" Width="130"></TextBox>
+            <TextBox Text="{Binding Login}" x:Name="test" Height="20" Margin="99 0 0 0" Width="130"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Height="25"  Grid.Row="2">
             <Label Content="Password:" />
-            <PasswordBox Margin="83 0 0 0" x:Name="passwordBox" Height="20" Width="130" />
+            <PasswordBox PasswordChar="{Binding Password}"  Margin="83 0 0 0" x:Name="passwordBox" Height="20" Width="130" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Height="22" Grid.Row="3">
             <Button Margin="10 0 0 0 " Padding="10 0 10 0">Login</Button>

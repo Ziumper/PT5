@@ -2,12 +2,13 @@
 using PTDatabase;
 using PTDatabase.Models;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace PTBusinessLogic
 {
     public class FileManager
     {
-        public string HostUserName => Environment.GetEnvironmentVariable("UserName");
+        public static string HostUserName => Environment.GetEnvironmentVariable("UserName");
 
         public void CreateDatabase()
         {
@@ -23,6 +24,17 @@ namespace PTBusinessLogic
         public void CreateUser(RegisterUserDto dto)
         {
             throw new NotImplementedException();
+        }
+
+        public bool CheckIsUserLogedInCorrect()
+        {
+            WindowsIdentity windowsIdentity = WindowsIdentity.GetCurrent();
+            IPrincipal principal = new WindowsPrincipal(windowsIdentity);
+
+            bool IsAuthenticated = windowsIdentity.IsAuthenticated;
+            bool IsAdmin = principal.IsInRole("BUILTIN\\" + "Administrators");
+
+            return IsAdmin && IsAuthenticated;
         }
     }
 }
