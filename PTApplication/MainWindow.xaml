@@ -76,7 +76,7 @@
                       Command="{Binding SortRootFolderCommand}" />
             <MenuItem Header="Users Management" >
                 <MenuItem Header="Register"  Command="{Binding OnRegisterNewUserCommand}"/>
-                <MenuItem Header="Login" />
+                <MenuItem Header="Login" Command="{Binding OnLoginIntoCommand}" />
             </MenuItem>
         </Menu>
         <ToolBarPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0" Grid.Column="1" Background="{x:Static SystemColors.ControlLightBrush}" >

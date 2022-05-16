@@ -31,6 +31,7 @@ namespace PTApplication.ViewModel
         public ICommand OpenFileCommand { get; private set; }
         public ICommand OnCancelOperationCommand { get; private set; }
         public ICommand OnRegisterNewUserCommand { get; private set; }
+        public ICommand OnLoginIntoCommand { get; private set; }
 
         public DirectoryInfoViewModel Root
         {
@@ -116,8 +117,15 @@ namespace PTApplication.ViewModel
             OnCancelOperationCommand = new RelayCommand(OnCancelClicked);
 
             OnRegisterNewUserCommand = new RelayCommand(OnRegisterNewUser);
+            OnLoginIntoCommand = new RelayCommand(LoginIntoCommand);
 
             FileManager manager = new FileManager();
+        }
+
+        private void LoginIntoCommand(object obj)
+        {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.Show();
         }
 
         private void OnRegisterNewUser(object obj)
