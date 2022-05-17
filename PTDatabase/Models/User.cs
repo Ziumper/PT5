@@ -12,5 +12,7 @@ namespace PTDatabase.Models
         public string Password { get; set; }   
         public string Ip { get; set; }  
         public List<FilePermission> FilePermissions { get; set; }
+        public bool IsLogged { get; set; }
+        public DateTime LastLogin { get; set; }
     }
 }

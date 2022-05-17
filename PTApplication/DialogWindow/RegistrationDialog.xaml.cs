@@ -26,5 +26,19 @@ namespace PTApplication.DialogWindow
             UserViewModel userViewModel = new UserViewModel();
             DataContext = userViewModel;
         }
+
+        public RegistrationDialog(UserViewModel userViewModel)
+        {
+            InitializeComponent();
+            DataContext = userViewModel;
+        }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            UserViewModel userModel = (UserViewModel)DataContext;
+            userModel.Password = passwordBox.Password;
+        }
+
+        
     }
 }

@@ -41,12 +41,42 @@ namespace PTApplication
                 fileExplorer.LoggedUser = new UserViewModel();
                 fileExplorer.LoggedUser.Login = FileManager.HostUserName;
 
-                FileManager fileManager = new FileManager();
-                bool isLoggedIn = fileManager.CheckIsUserLogedInCorrect();
+                bool isPresent = false;
+                bool isLogedIn = false;
 
-                LoginDialog loginDialog = new LoginDialog(fileExplorer.LoggedUser);
-                var result = loginDialog.ShowDialog();
-                if (result == false) this.Close();
+                using (FileManager fileManager = new FileManager())
+                {
+                    isPresent = fileManager.FindIfCurrentUserPresent();
+                    if (isPresent)
+                    {
+                        isLogedIn = fileManager.CheckIsUserLogedInCorrect();
+                    }
+                }
+
+                if(isPresent)
+                {
+                    
+                    if(isLogedIn == false)
+                    {
+                        LoginDialog loginDialog = new LoginDialog(fileExplorer.LoggedUser);
+                        var result = loginDialog.ShowDialog();
+                    }
+                   
+                    return;
+                }
+
+                //register and login
+                RegistrationDialog dialog = new RegistrationDialog(fileExplorer.LoggedUser);
+                var registrationDialogResult = dialog.ShowDialog();
+
+                if(registrationDialogResult.Value == true) 
+                {
+                    LoginDialog loginDalog = new LoginDialog(fileExplorer.LoggedUser);
+                    loginDalog.ShowDialog();
+                } else
+                {
+                    this.Close();
+                }
             }
         }
 

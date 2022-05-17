@@ -31,5 +31,6 @@ namespace PTApplication.DialogWindow
             InitializeComponent();
             DataContext = userViewModel;
         }
+      
     }
 }

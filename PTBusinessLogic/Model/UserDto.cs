@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PTBusinessLogic.Models
+namespace PTBusinessLogic.Model
 {
     public class UserDto
     {

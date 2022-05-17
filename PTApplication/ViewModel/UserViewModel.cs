@@ -1,10 +1,6 @@
 ﻿using PTBusinessLogic;
-using PTBusinessLogic.Models;
+using PTBusinessLogic.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,16 +10,22 @@ namespace PTApplication.ViewModel
     {
         public ICommand OnSaveNewUser { get; private set; } 
         public ICommand OnExitClicked { get; private set; }
+        public ICommand OnLoginUser { get; private set; }
 
-        private RegisterUserDto dto;
-        private FileManager fileManager;
+        private string password;
+        private UserDto dto;
 
         public UserViewModel()
         {
             dto = new RegisterUserDto();
             OnSaveNewUser = new RelayCommand(OnRegisterNewUser);
             OnExitClicked = new RelayCommand(ClickCancel);
-            fileManager = new FileManager();
+            OnLoginUser = new RelayCommand(LoginUser);
+        }
+
+        private void LoginUser(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void ClickCancel(object parameter)
@@ -41,12 +43,15 @@ namespace PTApplication.ViewModel
 
         private void OnRegisterNewUser(object obj)
         {
-            fileManager.CreateUser(dto);
+            using (var fileManager = new FileManager())
+            {
+                RegisterUserDto registerUserDto = new RegisterUserDto();
+                registerUserDto.Password = password;
+                registerUserDto.Login = dto.Login;
+                registerUserDto.Ip = "127.0.0.1";
+                fileManager.CreateUser(registerUserDto);
+            }
         }
-
-        
-
-       
 
         public string Login
         { 
@@ -66,12 +71,12 @@ namespace PTApplication.ViewModel
 
         public string Password
         {
-            get { return dto.Password; }
+            get { return password; }
             set
             {
-                if(value != null && dto.Password != value)
+                if(value != null && password != value)
                 {
-                    dto.Login = value.ToString();
+                    password = value.ToString();
                     NotifyPropertyChanged();
                 }
             }
