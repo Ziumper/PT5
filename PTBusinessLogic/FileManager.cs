@@ -74,9 +74,9 @@ namespace PTBusinessLogic
             IPrincipal principal = new WindowsPrincipal(windowsIdentity);
 
             bool IsAuthenticated = windowsIdentity.IsAuthenticated;
-            bool IsAdmin = principal.IsInRole("BUILTIN\\" + "Administrators");
+            //bool IsAdmin = principal.IsInRole("BUILTIN\\" + "Administrators");
 
-            return IsAdmin && IsAuthenticated;
+            return IsAuthenticated;
         }
 
         public bool IsUserExisting(string loginOfUser)

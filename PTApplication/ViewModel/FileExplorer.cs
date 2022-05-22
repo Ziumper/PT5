@@ -48,6 +48,7 @@ namespace PTApplication.ViewModel
         public ICommand OnCancelOperationCommand { get; private set; }
         public ICommand OnRegisterNewUserCommand { get; private set; }
         public ICommand OnLoginIntoCommand { get; private set; }
+        public ICommand OnManagementUserCommand { get; private set; }
 
         public DirectoryInfoViewModel Root
         {
@@ -134,6 +135,14 @@ namespace PTApplication.ViewModel
 
             OnRegisterNewUserCommand = new RelayCommand(OnRegisterNewUser);
             OnLoginIntoCommand = new RelayCommand(LoginIntoCommand);
+
+            OnManagementUserCommand = new RelayCommand(OnManagementUserCommandExecuted);
+        }
+
+        private void OnManagementUserCommandExecuted(object obj)
+        {
+            UserManagamentWindow managemnetDialog = new UserManagamentWindow();
+            managemnetDialog.ShowDialog();
         }
 
         private void LoginIntoCommand(object obj)
