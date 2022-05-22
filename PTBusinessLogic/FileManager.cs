@@ -3,6 +3,7 @@ using PTBusinessLogic.Service;
 using PTDatabase;
 using PTDatabase.Models;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Principal;
 
 namespace PTBusinessLogic
@@ -27,6 +28,28 @@ namespace PTBusinessLogic
             dbContext.SaveChanges();
         }
 
+        public bool IsUserCredentialsCorrect(string loginOfUser, string password)
+        {
+            var result = dbContext.Users.Select(u => u.Login == loginOfUser && u.Password == password).FirstOrDefault();
+            if (result == false) return false;
+
+            return true;
+        }
+
+        public bool LoginUser(string loginOfUser)
+        {
+            var user = dbContext.Users.Where(u => u.Login == loginOfUser).Single();
+
+            //if (user == false) return false;
+            user.IsLogged = true;
+            user.UpdatedTime = DateTime.Now;
+            
+            dbContext.Users.Update(user);
+            dbContext.SaveChanges(true);
+
+            return true;
+        }
+
         public bool FindIfCurrentUserPresent()
         {
             var user = dbContext.Users.Select(us => us.Login == HostUserName).FirstOrDefault();
@@ -40,7 +63,7 @@ namespace PTBusinessLogic
         {
             if (!IsUserLogedInAsAdministratorInWindows()) return false;
 
-            var user = dbContext.Users.Select(us => us.Login == HostUserName && us.IsLogged).FirstOrDefault();
+            var user = dbContext.Users.Where(us => us.Login == HostUserName && us.IsLogged).Single();
 
             return user != null;
         }
@@ -54,6 +77,31 @@ namespace PTBusinessLogic
             bool IsAdmin = principal.IsInRole("BUILTIN\\" + "Administrators");
 
             return IsAdmin && IsAuthenticated;
+        }
+
+        public bool IsUserExisting(string loginOfUser)
+        {
+            var user = dbContext.Users.Where(u => u.Login == loginOfUser).Single();
+            if(user != null) return true;
+
+            return false;
+        }
+
+        public bool UpdateUser(RegisterUserDto registerUserDto)
+        {
+            var user = dbContext.Users.Where(u => u.Login == registerUserDto.Login).Single();
+            if (user != null)
+            {
+                user.Password = registerUserDto.Password;
+                user.UpdatedTime = DateTime.Now;
+
+                dbContext.SaveChanges();
+                return true;
+            }
+
+
+
+            return false;
         }
 
         public void Dispose()

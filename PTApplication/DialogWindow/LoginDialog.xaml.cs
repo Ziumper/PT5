@@ -31,6 +31,11 @@ namespace PTApplication.DialogWindow
             InitializeComponent();
             DataContext = userViewModel;
         }
-      
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var userViewModel = (UserViewModel)DataContext;
+            userViewModel.Password = passwordBox.Password;
+        }
     }
 }

@@ -53,30 +53,48 @@ namespace PTApplication
                     }
                 }
 
-                if(isPresent)
+                if (isPresent && isLogedIn == false)
                 {
                     
                     if(isLogedIn == false)
                     {
                         LoginDialog loginDialog = new LoginDialog(fileExplorer.LoggedUser);
-                        var result = loginDialog.ShowDialog();
+                        loginDialog.ShowDialog();
+
+                        if (loginDialog.DialogResult == true)
+                        {
+                            isLogedIn = true;
+                        }
                     }
-                   
+                }
+
+                if(isLogedIn)
+                {
                     return;
                 }
 
-                //register and login
+                //register and login again
                 RegistrationDialog dialog = new RegistrationDialog(fileExplorer.LoggedUser);
                 var registrationDialogResult = dialog.ShowDialog();
-
-                if(registrationDialogResult.Value == true) 
+                if(dialog.DialogResult == false)
                 {
-                    LoginDialog loginDalog = new LoginDialog(fileExplorer.LoggedUser);
-                    loginDalog.ShowDialog();
-                } else
-                {
+                    System.Windows.MessageBox.Show("Failed to update a user, closing application!");
                     this.Close();
+                    return;
                 }
+
+                //login again
+                LoginDialog loginDialogAfterRegistration = new LoginDialog(fileExplorer.LoggedUser);
+                loginDialogAfterRegistration.ShowDialog();
+
+                if (loginDialogAfterRegistration.DialogResult == true)
+                {
+                    isLogedIn = true;
+                    return;
+                }
+                    
+                this.Close();
+                System.Windows.MessageBox.Show("Failed to login closed application");
             }
         }
 
