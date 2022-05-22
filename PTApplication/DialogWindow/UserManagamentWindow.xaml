@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="UserManagamentWindow" Height="450" Width="800">
     <Grid>
-        <ListView>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
-        </ListView>
+        <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" />
+                <DataGridTextColumn Header="Login"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Is loged in"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Password"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ip"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

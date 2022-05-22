@@ -81,8 +81,8 @@ namespace PTBusinessLogic
 
         public bool IsUserExisting(string loginOfUser)
         {
-            var user = dbContext.Users.Where(u => u.Login == loginOfUser).Single();
-            if(user != null) return true;
+            var user = dbContext.Users.Select(u => u.Login == loginOfUser).FirstOrDefault();
+            if (user != false) return true;
 
             return false;
         }
