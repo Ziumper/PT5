@@ -29,7 +29,7 @@ namespace PTBusinessLogic
 
         public void CreateUser(UserDto dto)
         {
-            if (dto.Login == null || dto.Password == null) return;
+            if (dto.Login == null || dto.Password == null || dto.Ip == null || dto.Id == null) return;
             User user = dtoConverter.CreateUserEntity(dto);
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
@@ -117,7 +117,7 @@ namespace PTBusinessLogic
         public bool UpdateUser(UserDto registerUserDto)
         {
             if(IsUserCanBeFound(registerUserDto.Login) == false) return false;
-            if(registerUserDto.Password == null || registerUserDto.Login == null) return false;
+            if(registerUserDto.Password == null || registerUserDto.Login == null || registerUserDto.Ip == null) return false;
             var user = dbContext.Users.Where(u => u.Login == registerUserDto.Login).Single();
             if (user != null)
             {
