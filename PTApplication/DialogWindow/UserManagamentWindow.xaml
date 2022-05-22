@@ -8,8 +8,8 @@
         xmlns:viewmodel="clr-namespace:PTApplication.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:UsersViewModel}"
         Title="UserManagamentWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="DG1" ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  AddingNewItem="DG1_AddingNewItem" CanUserAddRows="True" CanUserDeleteRows="False" AutoGenerateColumns="False" >
+        <DataGrid Name="DG1" ItemsSource="{Binding Users}"
+                  AddingNewItem="DG1_AddingNewItem" CanUserAddRows="True" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
                 <DataGridTextColumn Binding="{Binding Login}" Header="Login" />

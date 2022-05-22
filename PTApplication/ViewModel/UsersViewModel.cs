@@ -12,9 +12,9 @@ namespace PTApplication.ViewModel
 {
     public class UsersViewModel : ViewModelBase
     {
-        private DispatchedObservableCollection<UserViewModel> users;
+        private List<GridUserViewModel> users;
 
-        public DispatchedObservableCollection<UserViewModel> Users
+        public List<GridUserViewModel> Users
         {
             get
             {
@@ -35,23 +35,17 @@ namespace PTApplication.ViewModel
         {
             using (FileManager manager = new FileManager())
             {
-                DispatchedObservableCollection<UserViewModel> usersViewModel = new DispatchedObservableCollection<UserViewModel>();
+                List<GridUserViewModel> usersViewModel = new List<GridUserViewModel>();
                 var users = manager.GetUsers();
                 foreach (var user in users)
                 {
-                    UserViewModel viewModel = new UserViewModel(user);
+                    GridUserViewModel viewModel = new GridUserViewModel(user);
                     usersViewModel.Add(viewModel);
                 }
 
                 Users = usersViewModel;
             }
-
-            Users.CollectionChanged += OnCollectionChanged;
         }
-
-        private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            Debug.WriteLine("Hello ther!");
-        }
+       
     }
 }

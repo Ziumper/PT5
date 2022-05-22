@@ -45,7 +45,7 @@ namespace PTApplication.DialogWindow
             user.IsActive = true;
             user.Ip = "127.0.0.1";
 
-            UserViewModel model = new UserViewModel(user);
+            GridUserViewModel model = new GridUserViewModel(user);
 
             e.NewItem = model;
         }

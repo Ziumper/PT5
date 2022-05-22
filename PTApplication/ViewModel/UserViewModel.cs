@@ -111,10 +111,10 @@ namespace PTApplication.ViewModel
 
         private void UpdateOrCreate()
         {
-            using (var fileManager = new FileManager())
-            {
-                fileManager.UpdateOrCreate(dto);
-            }
+            //using (var fileManager = new FileManager())
+            //{
+            //    fileManager.UpdateOrCreate(dto);
+            //}
         }
 
         private Window GetWindowFromParam(object param)
