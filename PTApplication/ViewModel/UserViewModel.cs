@@ -12,12 +12,23 @@ namespace PTApplication.ViewModel
         public ICommand OnExitClicked { get; private set; }
         public ICommand OnLoginUser { get; private set; }
 
-        private string password;
         private UserDto dto;
 
         public UserViewModel()
         {
-            dto = new RegisterUserDto();
+            dto = new UserDto();
+            BindCommands();
+          
+        }
+
+        public UserViewModel(UserDto userDto)
+        {
+            this.dto = userDto;
+            BindCommands();
+        }
+
+        private void BindCommands()
+        {
             OnSaveNewUser = new RelayCommand(OnRegisterNewUser);
             OnExitClicked = new RelayCommand(ClickCancel);
             OnLoginUser = new RelayCommand(LoginUser);
@@ -77,9 +88,9 @@ namespace PTApplication.ViewModel
 
             using (var fileManager = new FileManager())
             {
-                RegisterUserDto registerUserDto = new RegisterUserDto();
+                UserDto registerUserDto = new UserDto();
                 registerUserDto.Login = Login;
-                registerUserDto.Password = password;
+                registerUserDto.Password = dto.Password;
 
                 if (fileManager.IsUserExisting(Login))
                 {
@@ -96,6 +107,14 @@ namespace PTApplication.ViewModel
             }
 
             CloseWindow(obj);
+        }
+
+        private void UpdateOrCreate()
+        {
+            using (var fileManager = new FileManager())
+            {
+                fileManager.UpdateOrCreate(dto);
+            }
         }
 
         private Window GetWindowFromParam(object param)
@@ -123,20 +142,23 @@ namespace PTApplication.ViewModel
                 if(value != null && dto.Login != value)
                 {
                     dto.Login = value;
+
                     NotifyPropertyChanged();
+                    UpdateOrCreate();
                 }
             }
         }
 
         public string Password
         {
-            get { return password; }
+            get { return dto.Password; }
             set
             {
-                if(value != null && password != value)
+                if(value != null && dto.Password != value)
                 {
-                    password = value.ToString();
+                    dto.Password = value.ToString();
                     NotifyPropertyChanged();
+                    UpdateOrCreate();
                 }
             }
         }
@@ -150,8 +172,83 @@ namespace PTApplication.ViewModel
             set 
             { 
                 if(value != null && dto.Ip != value )
-                dto.Ip = value; NotifyPropertyChanged(); 
+                dto.Ip = value; NotifyPropertyChanged();
+                UpdateOrCreate();
             }
-        }        
+        }
+        
+        public bool IsActive
+        {
+            get
+            {
+                return dto.IsActive;
+            }
+            set
+            {
+                if(value != null && dto.IsActive != value)
+                {
+                    dto.IsActive = value; NotifyPropertyChanged();
+                    UpdateOrCreate();
+                }
+            }
+        }
+
+        public bool IsLogged
+        {
+            get
+            {
+                return dto.IsLogged;
+            }
+            set
+            {
+                if(value!=null && dto.IsLogged != value)
+                {
+                    dto.IsLogged = value; NotifyPropertyChanged();
+                    UpdateOrCreate();
+                }
+            }
+        }
+
+        public DateTime CreatedTime
+        {
+            get
+            {
+                return dto.CreatedTime;
+            }
+            set
+            {
+                if(value != null && dto.CreatedTime != value)
+                {
+                    dto.CreatedTime = value; NotifyPropertyChanged();
+                    UpdateOrCreate();
+                }
+            }
+        }
+
+        public DateTime UpdatedTime
+        {
+            get
+            {
+                return dto.UpdatedTime;
+            }
+            set
+            {
+                if(value != null && dto.UpdatedTime != value)
+                {
+                    dto.UpdatedTime = value; NotifyPropertyChanged();
+                    UpdateOrCreate();
+                }
+             }
+
+        }
+
+        public int Id
+        {
+            get { return dto.Id; }
+            set { dto.Id = value; NotifyPropertyChanged();
+                UpdateOrCreate();
+            }
+        }
+        
     }
 }

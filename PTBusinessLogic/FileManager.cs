@@ -21,8 +21,15 @@ namespace PTBusinessLogic
             dtoConverter = new DtoConverter();
         }
 
-        public void CreateUser(RegisterUserDto dto)
+        public List<UserDto> GetUsers()
         {
+            var usersInDb = dbContext.Users.ToList();
+            return dtoConverter.CreateUserDto(usersInDb);
+        }
+
+        public void CreateUser(UserDto dto)
+        {
+            if (dto.Login == null || dto.Password == null) return;
             User user = dtoConverter.CreateUserEntity(dto);
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
@@ -36,8 +43,20 @@ namespace PTBusinessLogic
             return true;
         }
 
+        public int GetLastId()
+        {
+            var result = dbContext.Users.OrderBy(u => u.Id).LastOrDefault();
+            if(result != null)
+            {
+                return result.Id;
+            }
+
+            return 1;
+        }
+
         public bool LoginUser(string loginOfUser)
         {
+            if (IsUserExisting(loginOfUser) == false) return false; 
             var user = dbContext.Users.Where(u => u.Login == loginOfUser).Single();
 
             //if (user == false) return false;
@@ -63,7 +82,7 @@ namespace PTBusinessLogic
         {
             if (!IsUserLogedInAsAdministratorInWindows()) return false;
 
-            var user = dbContext.Users.Where(us => us.Login == HostUserName && us.IsLogged).Single();
+            var user = dbContext.Users.FirstOrDefault(us => us.Login == HostUserName && us.IsLogged);
 
             return user != null;
         }
@@ -81,20 +100,31 @@ namespace PTBusinessLogic
 
         public bool IsUserExisting(string loginOfUser)
         {
-            var user = dbContext.Users.Select(u => u.Login == loginOfUser).FirstOrDefault();
+            if(loginOfUser == null) return false;
+            var user = dbContext.Users.Select(u => u.Login == loginOfUser && u.IsActive).FirstOrDefault();
             if (user != false) return true;
 
             return false;
         }
 
-        public bool UpdateUser(RegisterUserDto registerUserDto)
+        public bool IsUserCanBeFound(string loginOfUser)
         {
+            if(loginOfUser == null) return false;
+            var user = dbContext.Users.Select(u => u.Login == loginOfUser).FirstOrDefault();
+            return user;
+        }
+
+        public bool UpdateUser(UserDto registerUserDto)
+        {
+            if(IsUserCanBeFound(registerUserDto.Login) == false) return false;
+            if(registerUserDto.Password == null || registerUserDto.Login == null) return false;
             var user = dbContext.Users.Where(u => u.Login == registerUserDto.Login).Single();
             if (user != null)
             {
                 user.Password = registerUserDto.Password;
-                user.UpdatedTime = DateTime.Now;
-
+                user.IsActive = registerUserDto.IsActive;
+                user.Login = registerUserDto.Login;
+                user.Ip = registerUserDto.Ip;
                 dbContext.SaveChanges();
                 return true;
             }
@@ -102,6 +132,14 @@ namespace PTBusinessLogic
 
 
             return false;
+        }
+
+        public void UpdateOrCreate(UserDto updateOrCreate)
+        {
+            if(IsUserCanBeFound(updateOrCreate.Login))
+                UpdateUser(updateOrCreate);
+             else
+                CreateUser(updateOrCreate);
         }
 
         public void Dispose()

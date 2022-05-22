@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PTApplication.DialogWindow"
         mc:Ignorable="d"
+        xmlns:viewmodel="clr-namespace:PTApplication.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:UsersViewModel}"
         Title="UserManagamentWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False">
+        <DataGrid Name="DG1" ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  AddingNewItem="DG1_AddingNewItem" CanUserAddRows="True" CanUserDeleteRows="False" AutoGenerateColumns="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" />
-                <DataGridTextColumn Header="Login"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Is loged in"></DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="Password"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ip"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
+                <DataGridTextColumn Binding="{Binding Login}" Header="Login" />
+                <DataGridCheckBoxColumn Binding="{Binding IsLogged}" Header="Is loged in"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Password}" Header="Password"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Ip}" Header="Ip"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Created Time" Binding="{Binding CreatedTime}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Updated Time" Binding="{Binding UpdatedTime}" />
+                <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="Is Active" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
